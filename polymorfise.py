@@ -1,11 +1,15 @@
 class Shaxs:
     """Shaxslar haqida ma'lumot"""
-    def __init__(self,ism,familiya,passport,tyil):
+    def __init__(self,ism,familiya,passport,tyil, pul):
         self.ism = ism
         self.familiya = familiya
         self.passport = passport
         self.tyil = tyil
+        self.__pul = pul
     
+    def get_pul(self):
+        return self.__pul
+
     def get_info(self):
         """Shaxs haqida ma'lumot"""
         info = f"{self.ism} {self.familiya}. "
@@ -18,10 +22,17 @@ class Shaxs:
     
 class Talaba(Shaxs):
     """Talaba klassi"""
-    def __init__(self, ism, familiya, passport, tyil):
+    univer = 0
+    talabalar_soni = 10
+    def __init__(self, ism, familiya, passport, tyil, pul):
         """Talabaning xususiyatlari"""
-        super().__init__(ism, familiya, passport, tyil)
+        super().__init__(ism, familiya, passport, tyil, pul)
         self.fanlar=[]
+        Talaba.univer += 1
+
+    @classmethod
+    def get_talabalar_soni(cls):
+        return cls.talabalar_soni
     def get_fanlar(self):
         return self.fanlar
     
@@ -58,11 +69,19 @@ class Admin(Professor):
         return f"{self.ism} foydalanuvchi bloklandi"
     
 matem = Fan('matematika', 'asliddin', 2006)
-mirshod = Talaba('Mirshod', 'Normurodov', 'AD234234', 2006)
-sharof = Professor('Sharofiddin', 'Normurodov', 12323131, 1993)
-adminka = Admin('shahzoda', 'Normuhammedova', 12313232, 2008)
+mirshod = Talaba('Mirshod', 'Normurodov', 'AD234234', 2006, 111)
+mirshod2 = Talaba('Mirshod', 'Normurodov', 'AD234234', 2006, 111)
+# sharof = Professor('Sharofiddin', 'Normurodov', 12323131, 1993)
+# adminka = Admin('shahzoda', 'Normuhammedova', 12313232, 2008)
 
-print(matem.nom)
-# mirshod.fanga_yozil(matem)
-mirshod.remove_fan(matem)
-print(mirshod.get_fanlar())
+asliddin = Shaxs('asliddin', 'norboyev', 12333231, 2006, 1000)
+
+mening_pulim = asliddin.get_pul()
+
+# print(asliddin.__pul)
+print(mening_pulim)
+print(mirshod.get_talabalar_soni())
+# print(matem.nom)
+# # mirshod.fanga_yozil(matem)
+# mirshod.remove_fan(matem)
+# print(mirshod.get_fanlar())
